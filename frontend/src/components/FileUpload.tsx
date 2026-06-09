@@ -49,6 +49,28 @@ export function FileUpload() {
 
       setFileId(data.fileId);
       setFileName(data.fileName);
+
+      // Now call the analyze endpoint
+      const analyzeResponse = await fetch('http://localhost:3001/analyze', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fileId: data.fileId }),
+      });
+
+      const analyzeData = await analyzeResponse.json();
+
+      if (!analyzeResponse.ok) {
+        throw new Error(analyzeData.error || 'Analysis failed');
+      }
+
+      // Save report data to session storage so the report page can access it
+      sessionStorage.setItem('blindspotReportData', JSON.stringify(analyzeData));
+      
+      // Navigate to the report page
+      window.location.href = '/report';
+
     } catch (err: unknown) {
       if (err instanceof Error) {
         setError(err.message || 'An error occurred during upload');
@@ -97,8 +119,9 @@ export function FileUpload() {
       </div>
 
       {isUploading && (
-        <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
-          Uploading...
+        <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400 flex flex-col items-center gap-2">
+          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <p>Uploading and analyzing document... This may take a minute.</p>
         </div>
       )}
 

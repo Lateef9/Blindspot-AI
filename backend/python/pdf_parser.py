@@ -1,4 +1,4 @@
-import fitz  # PyMuPDF
+import pypdf
 from typing import List, Dict, Union
 
 def parse_pdf(file_path: str) -> List[Dict[str, Union[int, str]]]:
@@ -16,15 +16,16 @@ def parse_pdf(file_path: str) -> List[Dict[str, Union[int, str]]]:
     extracted_data = []
     
     # Open the PDF document
-    with fitz.open(file_path) as doc:
+    with open(file_path, "rb") as f:
+        reader = pypdf.PdfReader(f)
         # Iterate through each page
-        for page_num in range(len(doc)):
-            page = doc[page_num]
-            text = page.get_text()
+        for page_num in range(len(reader.pages)):
+            page = reader.pages[page_num]
+            text = page.extract_text()
             
             extracted_data.append({
                 "page": page_num + 1,  # 1-indexed page number
-                "text": text
+                "text": text or ""
             })
             
     return extracted_data

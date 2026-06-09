@@ -1,6 +1,12 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import uploadRouter from './routes/upload';
+import chatRouter from './routes/chat';
+import analyzeRouter from './routes/analyze';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -15,6 +21,12 @@ app.get('/health', (req: Request, res: Response) => {
 
 // Upload endpoint
 app.use('/', uploadRouter);
+
+// Chat endpoint
+app.use('/', chatRouter);
+
+// Analyze endpoint
+app.use('/', analyzeRouter);
 
 app.listen(port, () => {
   console.log(`Backend server is running on port ${port}`);
