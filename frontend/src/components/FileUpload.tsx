@@ -2,7 +2,6 @@
 
 import React, { useState, useCallback } from 'react';
 import { useDropzone, FileRejection } from 'react-dropzone';
-import { UploadCloud, File, AlertCircle } from 'lucide-react';
 
 export function FileUpload() {
   const [fileId, setFileId] = useState<string | null>(null);
@@ -92,58 +91,47 @@ export function FileUpload() {
   });
 
   return (
-    <div className="w-full max-w-md mx-auto mt-10">
+    <div className="w-full">
       <div
         {...getRootProps()}
-        className={`border-2 border-dashed rounded-lg p-10 text-center cursor-pointer transition-colors
-          ${isDragActive ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500'}
-          ${isDragReject ? 'border-red-500 bg-red-50 dark:bg-red-900/20' : ''}
+        className={`border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-950 p-8 sm:p-12 cursor-pointer transition-all
+          ${isDragActive ? 'ring-4 ring-slate-900 dark:ring-slate-100 bg-slate-100 dark:bg-slate-900' : 'hover:bg-slate-50 dark:hover:bg-slate-900'}
+          ${isDragReject ? 'ring-4 ring-red-600 bg-red-50 dark:bg-red-950/20' : ''}
         `}
       >
         <input {...getInputProps()} />
-        <div className="flex flex-col items-center justify-center space-y-4">
-          <UploadCloud className="w-10 h-10 text-gray-400" />
-          {isDragActive ? (
-            <p className="text-blue-500 font-medium">Drop the PDF here...</p>
-          ) : (
-            <div>
-              <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Drag and drop your PDF here
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                or click to browse (Max 20MB)
-              </p>
-            </div>
-          )}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+          <div className="space-y-3">
+            <p className="text-lg font-black uppercase tracking-wider text-slate-900 dark:text-slate-100">
+              {isDragActive ? "Drop Document To Upload" : "Select Document"}
+            </p>
+            <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-400">
+              FORMAT: PDF | MAX_SIZE: 20MB
+            </p>
+          </div>
+          <div className="px-6 py-3 bg-slate-900 dark:bg-slate-100 text-sm font-mono font-bold uppercase text-white dark:text-slate-900 border-2 border-slate-900 dark:border-slate-100 hover:bg-slate-800 dark:hover:bg-slate-200 transition-colors">
+            Browse Files
+          </div>
         </div>
       </div>
 
       {isUploading && (
-        <div className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400 flex flex-col items-center gap-2">
-          <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-          <p>Uploading and analyzing document... This may take a minute.</p>
+        <div className="mt-6 p-6 border-2 border-slate-900 dark:border-slate-100 bg-slate-50 dark:bg-slate-900 flex justify-between items-center">
+          <span className="text-sm font-mono font-bold uppercase text-slate-900 dark:text-slate-100">Processing & Extracting Data</span>
+          <span className="text-sm font-mono font-bold animate-pulse text-slate-900 dark:text-slate-100">[||||||||||  ]</span>
         </div>
       )}
 
       {error && (
-        <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-md flex items-center gap-2 text-sm">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          {error}
+        <div className="mt-6 p-6 border-2 border-red-600 bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-400 text-sm font-mono font-bold uppercase">
+          ERROR: {error}
         </div>
       )}
 
       {fileId && fileName && (
-        <div className="mt-4 p-4 border border-green-200 dark:border-green-900/50 bg-green-50 dark:bg-green-900/20 rounded-md">
-          <h3 className="font-medium text-green-800 dark:text-green-300 flex items-center gap-2 mb-2">
-            <File className="w-4 h-4" />
-            Upload Successful
-          </h3>
-          <p className="text-sm text-green-700 dark:text-green-400 break-all">
-            <strong>File ID:</strong> {fileId}
-          </p>
-          <p className="text-sm text-green-700 dark:text-green-400 break-all">
-            <strong>File Name:</strong> {fileName}
-          </p>
+        <div className="mt-6 p-6 border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-950">
+          <p className="text-sm font-mono font-bold uppercase text-slate-700 dark:text-slate-400 mb-3">Upload Complete</p>
+          <p className="text-base font-mono font-bold text-slate-900 dark:text-slate-100 truncate">ID: {fileId}</p>
         </div>
       )}
     </div>

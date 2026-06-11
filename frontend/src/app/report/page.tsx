@@ -1,18 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { 
-  ShieldAlert, 
-  CheckCircle, 
-  AlertTriangle, 
-  XCircle, 
-  FileText, 
-  Target, 
-  Activity,
-  HelpCircle,
-  Briefcase,
-  DollarSign
-} from 'lucide-react';
 import { ReportChat } from '@/components/ReportChat';
 
 // Mock data for the UI demonstration
@@ -81,172 +69,172 @@ export default function ReportPage() {
 
   // Helper to determine Risk Score color
   const getRiskColor = (score: number) => {
-    if (score <= 3) return "text-green-600 bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800/50";
-    if (score <= 6) return "text-yellow-600 bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800/50";
-    return "text-red-600 bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800/50";
-  };
-
-  // Helper to determine Verdict icon
-  const getVerdictIcon = (decision: string) => {
-    const d = decision.toLowerCase();
-    if (d.includes("strong") || d.includes("yes")) return <CheckCircle className="w-8 h-8 text-green-500" />;
-    if (d.includes("caution") || d.includes("more data")) return <AlertTriangle className="w-8 h-8 text-yellow-500" />;
-    return <XCircle className="w-8 h-8 text-red-500" />;
+    if (score <= 3) return "text-emerald-700 dark:text-emerald-400 border-emerald-700 dark:border-emerald-400";
+    if (score <= 6) return "text-amber-700 dark:text-amber-400 border-amber-700 dark:border-amber-400";
+    return "text-rose-700 dark:text-rose-400 border-rose-700 dark:border-rose-400";
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 p-6 md:p-12 font-sans">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <div className="min-h-screen bg-white dark:bg-slate-950 p-6 md:p-12 font-sans">
+      <div className="max-w-7xl mx-auto space-y-10">
         
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="pb-8 border-b-2 border-slate-900 dark:border-slate-100 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Investment Analysis Report</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">AI-generated synthesis from uploaded documents</p>
+            <h1 className="text-4xl font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">Investment Analysis</h1>
+            <p className="text-sm font-mono font-bold text-slate-700 dark:text-slate-300 mt-3 uppercase tracking-wide">Automated Document Evaluation</p>
           </div>
           
-          <div className={`flex items-center gap-3 px-5 py-3 rounded-xl border ${getRiskColor(synthesis.risk_score)}`}>
-            <ShieldAlert className="w-6 h-6" />
+          <div className={`flex items-center gap-4 px-8 py-5 border-4 ${getRiskColor(synthesis.risk_score)}`}>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-wider opacity-80">Risk Score</p>
-              <p className="text-2xl font-bold">{synthesis.risk_score} <span className="text-sm font-normal opacity-70">/ 10</span></p>
+              <p className={`text-xs font-mono font-black uppercase tracking-widest mb-2 ${getRiskColor(synthesis.risk_score).split(' ')[0]} ${getRiskColor(synthesis.risk_score).split(' ')[1]}`}>Risk Score</p>
+              <p className="text-5xl font-black font-mono leading-none">{synthesis.risk_score} <span className="text-xl font-bold opacity-80">/ 10</span></p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-10">
           
           {/* Main Column */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="xl:col-span-2 space-y-10">
             
             {/* Executive Summary */}
-            <section className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-4">
-                <FileText className="w-5 h-5 text-blue-500" />
+            <section className="bg-slate-50 dark:bg-slate-900 border-2 border-slate-900 dark:border-slate-100 p-8">
+              <h2 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest mb-6 border-b-2 border-slate-900 dark:border-slate-100 pb-2 inline-block">
                 Executive Summary
               </h2>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              <p className="text-lg text-slate-900 dark:text-slate-100 leading-relaxed font-bold">
                 {synthesis.executive_summary}
               </p>
             </section>
 
             {/* Detailed Findings */}
-            <section className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-200">Detailed Findings</h2>
+            <section className="space-y-10">
               
               {/* Financial Findings */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-4">
-                  <DollarSign className="w-5 h-5 text-emerald-500" />
-                  Financial Analysis
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="border-2 border-slate-900 dark:border-slate-100">
+                <div className="bg-slate-100 dark:bg-slate-900 p-4 border-b-2 border-slate-900 dark:border-slate-100">
+                  <h3 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">
+                    Financial Analysis
+                  </h3>
+                </div>
+                <div className="p-8 grid md:grid-cols-2 gap-10">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Revenue Assumptions</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Revenue Assumptions</h4>
                     {raw_findings.financial_analysis.revenue_assumptions.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.financial_analysis.revenue_assumptions.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Cost Assumptions</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Cost Assumptions</h4>
                     {raw_findings.financial_analysis.cost_assumptions.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.financial_analysis.cost_assumptions.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                 </div>
-                <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
-                  <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Burn Rate</h4>
-                  <div className="flex gap-4 text-gray-700 dark:text-gray-300">
-                    <span className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-md"><strong>Amount:</strong> {raw_findings.financial_analysis.burn_rate?.amount || "N/A"}</span>
-                    <span className="bg-gray-100 dark:bg-gray-800 px-3 py-1 rounded-md"><strong>Runway:</strong> {raw_findings.financial_analysis.burn_rate?.runway || "N/A"}</span>
+                <div className="p-8 pt-0 border-t-2 border-slate-900 dark:border-slate-100 mt-4">
+                  <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest mt-8">Burn Rate</h4>
+                  <div className="flex flex-wrap gap-6 text-base font-bold text-slate-900 dark:text-slate-100 mb-4">
+                    <div className="border-2 border-slate-900 dark:border-slate-100 px-6 py-4 bg-slate-50 dark:bg-slate-900">
+                      <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-300 uppercase block mb-2">Amount</span>
+                      <span className="font-mono text-xl">{raw_findings.financial_analysis.burn_rate?.amount || "N/A"}</span>
+                    </div>
+                    <div className="border-2 border-slate-900 dark:border-slate-100 px-6 py-4 bg-slate-50 dark:bg-slate-900">
+                      <span className="text-xs font-mono font-black text-slate-700 dark:text-slate-300 uppercase block mb-2">Runway</span>
+                      <span className="font-mono text-xl">{raw_findings.financial_analysis.burn_rate?.runway || "N/A"}</span>
+                    </div>
                   </div>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{raw_findings.financial_analysis.burn_rate?.notes}</p>
+                  {raw_findings.financial_analysis.burn_rate?.notes && (
+                    <p className="text-base font-medium text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-900 p-5 border-l-4 border-slate-900 dark:border-slate-100">{raw_findings.financial_analysis.burn_rate.notes}</p>
+                  )}
                 </div>
               </div>
 
               {/* Market Findings */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-4">
-                  <Target className="w-5 h-5 text-indigo-500" />
-                  Market Analysis
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="border-2 border-slate-900 dark:border-slate-100">
+                <div className="bg-slate-100 dark:bg-slate-900 p-4 border-b-2 border-slate-900 dark:border-slate-100">
+                  <h3 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">
+                    Market Analysis
+                  </h3>
+                </div>
+                <div className="p-8 grid md:grid-cols-2 gap-10">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Demand</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Demand</h4>
                     {raw_findings.market_analysis.demand.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.market_analysis.demand.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Competition</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Competition</h4>
                     {raw_findings.market_analysis.competition.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.market_analysis.competition.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
-                  <div className="md:col-span-2">
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Pricing</h4>
+                  <div className="md:col-span-2 pt-6 border-t-2 border-slate-900 dark:border-slate-100">
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Pricing</h4>
                     {raw_findings.market_analysis.pricing.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.market_analysis.pricing.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                 </div>
               </div>
 
               {/* Execution Findings */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-4">
-                  <Activity className="w-5 h-5 text-orange-500" />
-                  Execution Analysis
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="border-2 border-slate-900 dark:border-slate-100">
+                <div className="bg-slate-100 dark:bg-slate-900 p-4 border-b-2 border-slate-900 dark:border-slate-100">
+                  <h3 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">
+                    Execution Analysis
+                  </h3>
+                </div>
+                <div className="p-8 grid md:grid-cols-2 gap-10">
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Hiring</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Hiring</h4>
                     {raw_findings.execution_analysis.hiring.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.execution_analysis.hiring.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                   <div>
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Scaling</h4>
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Scaling</h4>
                     {raw_findings.execution_analysis.scaling.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.execution_analysis.scaling.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
-                  <div className="md:col-span-2">
-                    <h4 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Dependencies</h4>
+                  <div className="md:col-span-2 pt-6 border-t-2 border-slate-900 dark:border-slate-100">
+                    <h4 className="text-xs font-mono font-black text-slate-900 dark:text-slate-100 mb-4 uppercase tracking-widest border-b border-slate-300 dark:border-slate-700 pb-2">Dependencies</h4>
                     {raw_findings.execution_analysis.dependencies.length > 0 ? (
-                      <ul className="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+                      <ul className="list-square list-inside space-y-3 text-base font-medium text-slate-900 dark:text-slate-100">
                         {raw_findings.execution_analysis.dependencies.map((item: string, i: number) => <li key={i}>{item}</li>)}
                       </ul>
                     ) : (
-                      <p className="text-sm text-gray-400 italic">Not specified in document</p>
+                      <p className="text-sm font-mono font-bold text-slate-500 italic">No data extracted</p>
                     )}
                   </div>
                 </div>
@@ -256,40 +244,35 @@ export default function ReportPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-10">
             
             {/* Verdict */}
-            <section className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-6">
-                <Briefcase className="w-5 h-5 text-purple-500" />
+            <section className="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-2 border-slate-900 dark:border-slate-100 p-8">
+              <h2 className="text-sm font-mono font-black uppercase tracking-widest mb-8 border-b-2 border-slate-700 dark:border-slate-300 pb-2 inline-block">
                 Final Verdict
               </h2>
-              <div className="flex flex-col items-center text-center space-y-4">
-                {getVerdictIcon(synthesis.verdict.decision)}
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                    {synthesis.verdict.decision}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {synthesis.verdict.justification}
-                  </p>
-                </div>
+              <div className="space-y-6">
+                <h3 className="text-4xl font-black uppercase tracking-wide">
+                  {synthesis.verdict.decision}
+                </h3>
+                <p className="text-lg font-bold leading-relaxed">
+                  {synthesis.verdict.justification}
+                </p>
               </div>
             </section>
 
             {/* Top Questions */}
-            <section className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 flex items-center gap-2 mb-6">
-                <HelpCircle className="w-5 h-5 text-rose-500" />
-                Top Questions
+            <section className="border-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-950 p-8">
+              <h2 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest mb-8 border-b-2 border-slate-900 dark:border-slate-100 pb-2 inline-block">
+                Critical Inquiries
               </h2>
-              <div className="space-y-4">
+              <div className="space-y-8">
                 {synthesis.top_questions.map((question: string, index: number) => (
-                  <div key={index} className="flex gap-3">
-                    <div className="flex-shrink-0 w-6 h-6 rounded-full bg-rose-100 dark:bg-rose-900/30 text-rose-600 flex items-center justify-center text-sm font-bold mt-0.5">
-                      {index + 1}
+                  <div key={index} className="flex gap-5">
+                    <div className="text-base font-mono font-black text-slate-900 dark:text-slate-100 pt-1">
+                      {String(index + 1).padStart(2, '0')}.
                     </div>
-                    <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+                    <p className="text-base text-slate-900 dark:text-slate-100 leading-relaxed font-bold">
                       {question}
                     </p>
                   </div>

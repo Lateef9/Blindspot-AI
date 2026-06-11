@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Send, MessageSquare, Loader2 } from 'lucide-react';
 
 interface ReportChatProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -10,7 +9,7 @@ interface ReportChatProps {
 
 export function ReportChat({ reportData }: ReportChatProps) {
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant', content: string }[]>([
-    { role: 'assistant', content: "Hi! I'm your AI analyst. You can ask me any questions about the generated report." }
+    { role: 'assistant', content: "Report Query Assistant. Please submit any queries regarding the findings or source materials." }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -55,52 +54,51 @@ export function ReportChat({ reportData }: ReportChatProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col h-[500px]">
-      <div className="p-4 border-b border-gray-100 dark:border-gray-800 flex items-center gap-2">
-        <MessageSquare className="w-5 h-5 text-indigo-500" />
-        <h3 className="font-bold text-gray-800 dark:text-gray-200">Chat with Report</h3>
+    <div className="bg-white dark:bg-slate-950 border-2 border-slate-900 dark:border-slate-100 flex flex-col h-[700px]">
+      <div className="p-6 border-b-2 border-slate-900 dark:border-slate-100 flex justify-between items-center bg-slate-50 dark:bg-slate-900">
+        <h3 className="text-sm font-mono font-black text-slate-900 dark:text-slate-100 uppercase tracking-widest">Interactive Q&A</h3>
       </div>
       
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-slate-100 dark:bg-slate-900">
         {messages.map((msg, idx) => (
           <div key={idx} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div 
-              className={`max-w-[80%] p-3 rounded-2xl ${
+              className={`max-w-[85%] p-5 border-2 ${
                 msg.role === 'user' 
-                  ? 'bg-blue-600 text-white rounded-tr-sm' 
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-tl-sm'
+                  ? 'bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 border-slate-900 dark:border-slate-100' 
+                  : 'bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 border-slate-900 dark:border-slate-100'
               }`}
             >
-              <p className="text-sm leading-relaxed whitespace-pre-wrap">{msg.content}</p>
+              <p className="text-base font-bold leading-relaxed whitespace-pre-wrap">{msg.content}</p>
             </div>
           </div>
         ))}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-gray-100 dark:bg-gray-800 p-3 rounded-2xl rounded-tl-sm flex items-center gap-2">
-              <Loader2 className="w-4 h-4 animate-spin text-gray-500" />
-              <span className="text-sm text-gray-500">Analyzing report...</span>
+            <div className="bg-white dark:bg-slate-950 border-2 border-slate-900 dark:border-slate-100 p-4 flex items-center gap-4">
+              <span className="text-sm font-mono animate-pulse text-slate-900 dark:text-slate-100 font-bold">[||||||  ]</span>
+              <span className="text-sm font-mono font-bold uppercase text-slate-700 dark:text-slate-300">Retrieving insights...</span>
             </div>
           </div>
         )}
       </div>
 
-      <div className="p-4 border-t border-gray-100 dark:border-gray-800">
-        <form onSubmit={sendMessage} className="flex gap-2">
+      <div className="p-6 border-t-2 border-slate-900 dark:border-slate-100 bg-white dark:bg-slate-950">
+        <form onSubmit={sendMessage} className="flex gap-4">
           <input
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask a question about the report..."
-            className="flex-1 px-4 py-2 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:text-gray-200"
+            placeholder="Submit a query..."
+            className="flex-1 px-5 py-4 bg-white dark:bg-slate-950 border-2 border-slate-900 dark:border-slate-100 focus:outline-none focus:ring-4 focus:ring-slate-900 dark:focus:ring-slate-100 text-base font-bold text-slate-900 dark:text-slate-100 placeholder-slate-500"
             disabled={isLoading}
           />
           <button 
             type="submit" 
             disabled={isLoading || !input.trim()}
-            className="p-2 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-xl transition-colors flex items-center justify-center"
+            className="px-6 py-4 bg-slate-900 dark:bg-slate-100 hover:bg-slate-800 dark:hover:bg-slate-200 disabled:opacity-50 text-white dark:text-slate-900 text-sm font-mono uppercase font-black transition-colors border-2 border-slate-900 dark:border-slate-100"
           >
-            <Send className="w-5 h-5" />
+            Send
           </button>
         </form>
       </div>
